@@ -28,5 +28,25 @@
       [nil nil nil
        nil nil nil
        :X :X :X]) => true
+    (won?
+      [:X nil nil
+       :X nil nil
+       :X nil nil]) => true
+    (won?
+      [nil :X nil
+       nil :X nil
+       nil :X nil]) => true
+    (won?
+      [nil nil :X
+       nil nil :X
+       nil nil :X]) => true
+    (won?
+      [:X nil nil
+       nil :X nil
+       nil nil :X]) => true
+    (won?
+      [nil nil :X
+       nil :X nil
+       :X nil nil]) => true
     )
   )
