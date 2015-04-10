@@ -2,6 +2,8 @@
 
 (def dimension 3)
 
+(declare board-full?)
+
 (def new-board (apply vector (repeat (square dimension) nil)))
 
 (def any? (comp boolean some))
@@ -11,6 +13,14 @@
 
 (defn won? [board]
   (any? true? (map #(line-won? %) (lines board))))
+
+(defn draw? [board]
+  (and (board-full? board) ((comp not won?) board))
+  )
+
+(defn- board-full? [board]
+  (every? (comp not nil?) board)
+  )
 
 (defn- line-won? [line]
   (and (all-elements-equal line) (not-every? nil? line)))

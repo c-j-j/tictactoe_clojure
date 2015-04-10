@@ -4,10 +4,6 @@
             [tictactoe.board :refer :all]))
 
 
-(defn create-board []
-  (add-move (add-move new-board 0 :X) 1 :X)
-  )
-
 (facts "about board"
   (fact "creates new board"
     (count new-board) => 9)
@@ -48,5 +44,24 @@
       [nil nil :X
        nil :X nil
        :X nil nil]) => true
+    (won?
+      [nil nil :X
+       nil :X nil
+       nil nil nil]) => false
     )
+  (fact "full board with no winner is a draw"
+    (draw?
+      [nil nil nil
+       nil nil nil
+       nil nil nil]) => false
+    (draw?
+      [:X :O :X
+       :X :X :O
+       :O :X :O]) => true
+    (draw?
+      [:X :O :X
+       :X :X :O
+       :X :X :O]) => false
+    )
+  (fact "extract winner")
   )
