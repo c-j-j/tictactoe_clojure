@@ -8,8 +8,12 @@
 
 (def any? (comp boolean some))
 
-(defn add-move [board position mark]
-  (assoc board position mark))
+(defn add-move [board position]
+  (->> (filter identity board)
+       count
+       (#(if (even? %) :X :O))
+       (assoc board position))
+  )
 
 (defn won? [board]
   (any? true? (map #(line-won? %) (lines board))))
