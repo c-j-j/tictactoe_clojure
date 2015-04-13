@@ -3,6 +3,6 @@
 
 (defn print-board[board]
   (->> (partition dimension board)
-      (map #(clojure.string/join " | " %))
+       (map #(clojure.string/join " | " %))
        (clojure.string/join "\n")
        println))
