@@ -6,15 +6,15 @@
 
 (facts "about board"
   (fact "creates new board"
-    (count new-board) => 9)
+    (count (new-board)) => 9)
 
   (fact "adds move to board"
-    (add-move new-board 0) => (concat [:X] (repeat 8 nil))
-    (nth (add-move new-board 1) 1) => :X)
+    (add-move (new-board) 0) => (concat [:X] (repeat 8 nil))
+    (nth (add-move (new-board) 1) 1) => :X)
   (fact "adds O as second move"
     (add-move [:X :O :X nil nil nil nil nil nil] 7) => [:X :O :X nil nil nil nil :O nil])
   (fact "winner occupies row"
-    (won? new-board) => false
+    (won? (new-board)) => false
     (won?
       [:X :X :X
        nil nil nil

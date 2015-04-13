@@ -1,21 +1,22 @@
 (ns tictactoe.game)
 (use '[tictactoe.board])
 
+(declare play-game)
+(declare play-turn)
 (declare get-move)
 (declare parse-int)
 (declare game-over?)
 
-(defn play-game[board]
+(defn play-game[board print-board]
   (loop [current-board board]
-    (println current-board)
-    ;; print board here
+      (print-board current-board)
       (if (game-over? current-board)
         current-board
-        (recur (play current-board)))
+        (recur (play-turn current-board)))
     )
   )
 
-(defn play [board]
+(defn play-turn [board]
   (add-move board (get-move)))
 
 (defn game-over? [board]

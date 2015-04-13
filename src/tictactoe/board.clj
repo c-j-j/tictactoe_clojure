@@ -2,9 +2,19 @@
 
 (def dimension 3)
 
+(declare square)
 (declare board-full?)
+(declare line-won?)
+(declare lines)
+(declare all-elements-equal)
+(declare diagonals)
+(declare diagonal-top-left)
+(declare diagonal-top-right)
+(declare diagonal-line)
+(declare rows)
+(declare cols)
 
-(def new-board (apply vector (repeat (square dimension) nil)))
+(defn new-board [] (apply vector (repeat (square dimension) nil)))
 
 (def any? (comp boolean some))
 
@@ -50,7 +60,7 @@
 (defn- diagonal-line[board step-size drop-number]
   (vector (drop drop-number (reverse (drop drop-number (take-nth step-size board))))))
 
-(defn- square[num](* num num))
+(defn square[num](* num num))
 
 (defn- all-elements-equal[line]
   (and (apply = line)))
