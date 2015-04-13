@@ -20,8 +20,7 @@
   (add-move board (get-move)))
 
 (defn game-over? [board]
-  (won? board)
-  )
+  (or (won? board) (draw? board)))
 
 (defn- get-move[]
   (parse-int (read-line)))
