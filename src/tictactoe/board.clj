@@ -29,11 +29,15 @@
 (defn- lines[board]
   (concat (rows board) (cols board) (diagonals board)))
 
+;(defn add-move [board position]
+  ;(->> (filter identity board)
+       ;count
+       ;(#(if (even? %) :X :O))
+       ;(assoc board position))
+  ;)
+
 (defn add-move [board position]
-  (->> (filter identity board)
-       count
-       (#(if (even? %) :X :O))
-       (assoc board position))
+  (assoc board position (if (even? (count (filter identity board))) :X :O))
   )
 
 (defn won? [board]

@@ -7,6 +7,6 @@
 
 (facts "about board"
   (fact "prints board to display"
-    (with-out-str (print-board [:A :B :C :D :E :F] ))
+    (with-out-str (display-output [:A :B :C :D :E :F] ))
     => ":A | :B | :C\n:D | :E | :F\n")
   )

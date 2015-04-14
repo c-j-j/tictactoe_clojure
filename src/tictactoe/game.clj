@@ -8,9 +8,9 @@
   (add-move board (player-move board))
 )
 
-(defn play-game[board print-board player-move]
+(defn play-game[board display-output player-move]
   (loop [current-board board]
-      (print-board current-board)
+      (display-output current-board)
       (if (game-over? current-board)
         current-board
         (recur (play-turn current-board player-move)))))

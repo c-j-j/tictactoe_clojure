@@ -5,4 +5,4 @@
 (use '[tictactoe.humanplayer])
 
 (defn -main []
-  (play-game (new-board) print-board get-move))
+  (play-game (new-board) display-output get-move))
