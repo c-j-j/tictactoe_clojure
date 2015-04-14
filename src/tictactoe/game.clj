@@ -10,10 +10,11 @@
       (print-board current-board)
       (if (game-over? current-board)
         current-board
-        (recur (play-turn current-board player-move))))) 
+        (recur (play-turn current-board player-move)))))
 
 (defn play-turn [board player-move]
-  (add-move board (player-move)))
+  (add-move board (player-move board))
+)
 
 (defn game-over? [board]
   (or (won? board) (draw? board)))
