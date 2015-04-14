@@ -16,6 +16,5 @@
 
   (fact "move not valid when it exceeds board size"
     (with-in-str "-1\n0" (get-move [nil])) => 0
-    (with-in-str "1\n0" (get-move [nil])) => 0
-    )
+    (with-in-str "1\n0" (get-move [nil])) => 0)
   )
