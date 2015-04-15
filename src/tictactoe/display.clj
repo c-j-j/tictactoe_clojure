@@ -9,10 +9,15 @@
 (defn- print-to-console [s]
   (println s))
 
+(defn- prepare-board [board]
+  (map #(if(= %1 nil) %2 (name %1)) board (range (count board))))
+
 (defn- format-board [board]
-  (->> (partition dimension board)
-       (map #(clojure.string/join " | " %))
-       (clojure.string/join "\n")))
+  (->>
+    (prepare-board board)
+    (partition dimension)
+    (map #(clojure.string/join " | " %))
+    (clojure.string/join "\n")))
 
 (defn display-output[board]
   (print-to-console (format-board board))
@@ -20,5 +25,5 @@
     (won? board) (print-to-console won-message)
     (draw? board) (print-to-console draw-message)
     :else
-    (print-to-console (format next-turn-message (current-mark board)))))
+    (print-to-console (format next-turn-message (name (current-mark board))))))
 

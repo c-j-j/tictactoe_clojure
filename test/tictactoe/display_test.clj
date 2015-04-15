@@ -8,7 +8,9 @@
 (facts "about board"
   (fact "prints board to display"
     (with-out-str (display-output [:A :B :C :D :E :F] ))
-    => (contains ":A | :B | :C\n:D | :E | :F\n")
+    => (contains "A | B | C\nD | E | F\n")
+    (with-out-str (display-output [nil nil nil nil nil nil] ))
+    => (contains "0 | 1 | 2\n3 | 4 | 5\n")
     )
   (fact "prints winning status"
     (with-out-str (display-output [:X :X :X]))
@@ -16,7 +18,7 @@
     )
   (fact "prints next player"
     (with-out-str (display-output (new-board)))
-    => (contains (format next-turn-message (current-mark (new-board)))))
+    => (contains (format next-turn-message (name (current-mark (new-board))))))
   (fact "prints draw message"
     (with-out-str (display-output [:X :X :O :O :X :X :X :O :O]))
     => (contains draw-message))
