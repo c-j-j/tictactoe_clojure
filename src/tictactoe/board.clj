@@ -29,6 +29,11 @@
 (defn- lines[board]
   (concat (rows board) (cols board) (diagonals board)))
 
+(defn current-mark [board]
+  (if (even? (count (filter identity board))) :X :O)
+  )
+
+; leaving this here to show difference between two approaches
 ;(defn add-move [board position]
   ;(->> (filter identity board)
        ;count
@@ -37,7 +42,7 @@
   ;)
 
 (defn add-move [board position]
-  (assoc board position (if (even? (count (filter identity board))) :X :O))
+  (assoc board position (current-mark board))
   )
 
 (defn won? [board]
