@@ -9,12 +9,9 @@
 (defn- print-to-console [s]
   (println s))
 
-(defn- prepare-board [board]
-  (map #(if(= %1 nil) %2 (name %1)) board (range (count board))))
-
 (defn- format-board [board]
   (->>
-    (prepare-board board)
+    (map #(if(= %1 nil) %2 (name %1)) board (range (count board)))
     (partition dimension)
     (map #(clojure.string/join " | " %))
     (clojure.string/join "\n")))

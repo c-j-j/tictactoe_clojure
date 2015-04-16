@@ -3,6 +3,7 @@
 (use '[tictactoe.game])
 (use '[tictactoe.display])
 (use '[tictactoe.humanplayer])
+(use '[tictactoe.player])
 
 (defn -main []
-  (play-game (new-board) display-output get-move))
+  (play-game (new-board) display-output (player-move {:player_type :human})))

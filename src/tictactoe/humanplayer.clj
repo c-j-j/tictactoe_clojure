@@ -1,4 +1,5 @@
-(ns tictactoe.humanplayer)
+(ns tictactoe.humanplayer
+  (require [tictactoe.player :as player]))
 
 (defn- get-input [] (read-line))
 
@@ -22,11 +23,14 @@
 
 (defn- get-valid-move [board]
   (loop [user-move (get-input)]
-   (if(move-valid? user-move board)
-     user-move
-     (recur (get-valid-move board))))
+    (if(move-valid? user-move board)
+      user-move
+      (recur (get-valid-move board))))
   )
 
 (defn get-move [board]
   (parse-int (get-valid-move board)))
 
+(defmethod player/get-move-new :human [_ board]
+  (get-move board)
+  )

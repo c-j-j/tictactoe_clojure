@@ -12,10 +12,12 @@
     (with-out-str (display-output [nil nil nil nil nil nil] ))
     => (contains "0 | 1 | 2\n3 | 4 | 5\n")
     )
+
   (fact "prints winning status"
     (with-out-str (display-output [:X :X :X]))
     => (contains won-message)
     )
+
   (fact "prints next player"
     (with-out-str (display-output (new-board)))
     => (contains (format next-turn-message (name (current-mark (new-board))))))
