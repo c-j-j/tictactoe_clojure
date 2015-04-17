@@ -23,7 +23,7 @@
           terminal? (fn [n] (not= n node))
           get-child-nodes (fn [node] [child-node])
           ]
-      (negamax node terminal? get-score get-child-nodes) => {child-node -1}))
+      (negamax node terminal? get-score get-child-nodes) => [child-node -1]))
 
   (fact "returns the child node with the lowest(?) score"
     (let [node 0 score 10 child-node-A 2 child-node-B 1
@@ -31,5 +31,5 @@
           terminal? (fn [n] (not= n node))
           get-child-nodes (fn [node] [child-node-A child-node-B])
           ]
-      (negamax node terminal? get-score get-child-nodes) => {child-node-B -1}))
+      (negamax node terminal? get-score get-child-nodes) => [child-node-B -1]))
   )
