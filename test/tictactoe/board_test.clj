@@ -66,4 +66,24 @@
        :X :X :O
        :X :X :O]) => false
     )
+
+  (fact "determines empty positions"
+    (empty-positions
+      [:X :X :O
+       :X :O :O
+       :O nil nil]) => (contains 7 8)
+    )
+
+  (fact "next possible board states"
+    (next-board-states
+      [:X :X :O
+       :X :O :O
+       :O :X nil]) =>
+
+    (contains
+      '([:X :X :O
+         :X :O :O
+         :O :X :X])
+      )
+    )
   )

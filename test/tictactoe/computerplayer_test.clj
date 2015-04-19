@@ -2,34 +2,36 @@
   (:use midje.sweet)
   (:require [clojure.test :refer :all]
             [tictactoe.computerplayer :refer :all]
+            [tictactoe.board :refer :all]
             [tictactoe.player :as player]))
 
-(def _ nil)
+(defn get-computer-move[board]
+  (player/get-move-new {:player_type :computer} board))
+
 
 (facts "about computer player"
-  ;(fact "returns 0"
-    ;(negamax [nil]) => {0 10})
+  (fact "goes in last possible space"
+    (get-computer-move [:X :X :O
+                        :O :O :X
+                        :X nil :X]) => 7)
 
-  (fact "returns score for terminal node"
-    (let [node 0 score 10
-          get-score (fn [_] score)
-          terminal? (fn [_] true)
-          ]
-      (negamax node terminal? get-score _) => {node score}))
+  (fact "goes in one of last possible spaces"
+    (get-computer-move [:X :X :O
+                        :O :O :X
+                        :X nil nil]) => 7)
 
-  (fact "negates the score of child node"
-    (let [node 0 score 10 child-node 1
-          get-score (fn [node] node)
-          terminal? (fn [n] (not= n node))
-          get-child-nodes (fn [node] [child-node])
-          ]
-      (negamax node terminal? get-score get-child-nodes) => [child-node -1]))
+  ;needs optimising
+  ;(fact "chooses corner to start things of with"
+  ;(get-computer-move (new-board)) => 0)
 
-  (fact "returns the child node with the lowest(?) score"
-    (let [node 0 score 10 child-node-A 2 child-node-B 1
-          get-score (fn [node] node)
-          terminal? (fn [n] (not= n node))
-          get-child-nodes (fn [node] [child-node-A child-node-B])
-          ]
-      (negamax node terminal? get-score get-child-nodes) => [child-node-B -1]))
+  ;(fact "chooses centre when opponent starts in corner"
+    ;(get-computer-move [:X nil nil
+                        ;nil nil nil
+                        ;nil nil nil]) => 4)
+
+
+  (fact "forks opponent from winning"
+    (get-computer-move [:X nil nil
+                        nil :O nil
+                        :X nil nil]) => 3)
   )

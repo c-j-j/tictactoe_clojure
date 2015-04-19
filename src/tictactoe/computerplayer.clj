@@ -1,25 +1,16 @@
 (ns tictactoe.computerplayer
-  (require [tictactoe.player :as player]))
+  (require [tictactoe.player :as player]
+           [tictactoe.game :refer :all]
+           [tictactoe.board :refer :all]
+          [tictactoe.negamax :refer :all]
+           ))
 
-
-(defn- update-values [m f]
-  (reduce (fn [result [k v]] (assoc result k (f v))) {} m)
-  )
-
-(defn- sort-map-by-value [m]
-  (into (sorted-map-by (fn [key1 key2] (compare [(get m key2) key2] [(get m key1) key1]))) m)
-  )
-
-(defn negamax[node terminal? get-score get-child-nodes]
-  (if (terminal? node)
-    {node (get-score node)}
-    (let [apply-negamax #(negamax % terminal? get-score get-child-nodes)
-          child-scores (apply merge (map apply-negamax (get-child-nodes node)))
-          negated-scores (update-values child-scores unchecked-negate)]
-      (first (sort-map-by-value negated-scores)))
-    )
-  )
+(defn- find-differences [arr1 arr2]
+  (filter #(not= (get arr1 %) (get arr2 %)) (range (count arr1))))
 
 (defmethod player/get-move-new :computer [_ board]
-  prn "in computer player"
+  (let [best-possible-board (negamax board game-over? get-score next-board-states 0)
+       board-differences (find-differences board best-possible-board)]
+    (first board-differences))
   )
+

@@ -24,6 +24,12 @@
     => irrelevant
     (provided
       (display-output anything) => nil :times 1))
+
+  (fact "score is -10 when game has been won"
+    (get-score [:X :X :X nil nil nil nil nil nil]) => -10)
+
+  (fact "score is 0 when game has been drawn"
+    (get-score [:X :X :O :O :X :X :X :O :O]) => 0)
   )
 
 (defn one-turn-game []

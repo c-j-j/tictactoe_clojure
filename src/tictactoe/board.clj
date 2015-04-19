@@ -6,6 +6,14 @@
   (letfn [(square [x](* x x))]
     (apply vector (repeat (square dimension) nil))))
 
+(defn empty-positions [board]
+  (filter identity (map-indexed (fn[index item](if (nil? item)index)) board))
+  )
+
+(defn next-board-states [board]
+    (map #(add-move board %) (empty-positions board))
+  )
+
 (def any? (comp boolean some))
 
 (defn- rows[board]
@@ -35,11 +43,11 @@
 
 ; leaving this here to show difference between two approaches
 ;(defn add-move [board position]
-  ;(->> (filter identity board)
-       ;count
-       ;(#(if (even? %) :X :O))
-       ;(assoc board position))
-  ;)
+;(->> (filter identity board)
+;count
+;(#(if (even? %) :X :O))
+;(assoc board position))
+;)
 
 (defn add-move [board position]
   (assoc board position (current-mark board))
@@ -51,4 +59,4 @@
 
 (defn draw? [board]
   (letfn [(board-full? [board] (every? (comp not nil?) board))] 
-   (and (board-full? board) ((comp not won?) board))))
+    (and (board-full? board) ((comp not won?) board))))
