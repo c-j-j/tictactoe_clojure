@@ -11,18 +11,20 @@
   (map #(unchecked-negate %) coll)
   )
 
-(defn negamax[node terminal? get-score get-child-nodes depth]
-  (if (terminal? node)
-    (get-score node)
-    (let [apply-negamax #(negamax % terminal? get-score get-child-nodes (inc depth))
-          child-nodes (get-child-nodes node)
-          child-scores (map apply-negamax child-nodes)
-          negated-scores (negate-all child-scores)
-          child-node-scores (apply hash-map (interleave child-nodes negated-scores))
-          best-score (sort-map-by-value child-node-scores)]
-      (if (= depth 0)
-        (first (keys best-score))
-        (first (vals best-score))))
-    )
+(defn negamax([node terminal? get-score get-child-nodes] 
+              (negamax node terminal? get-score get-child-nodes 0))
+  ([node terminal? get-score get-child-nodes depth]
+   (if (terminal? node)
+     (get-score node)
+     (let [apply-negamax #(negamax % terminal? get-score get-child-nodes (inc depth))
+           child-nodes (get-child-nodes node)
+           child-scores (map apply-negamax child-nodes)
+           negated-scores (negate-all child-scores)
+           child-node-scores (apply hash-map (interleave child-nodes negated-scores))
+           best-score (sort-map-by-value child-node-scores)]
+       (if (= depth 0)
+         (first (keys best-score))
+         (first (vals best-score))))
+     ))
   )
 
