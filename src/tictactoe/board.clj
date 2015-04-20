@@ -1,10 +1,12 @@
 (ns tictactoe.board)
 
-(def dimension 3)
+(defn dimension[board]
+  (int (Math/sqrt (count board))))
 
-(defn new-board []
-  (letfn [(square [x](* x x))]
-    (apply vector (repeat (square dimension) nil))))
+(defn new-board
+  ([] (new-board 3))
+  ([dim] (letfn [(square [x](* x x))]
+           (apply vector (repeat (square dim) nil)))))
 
 (defn empty-positions [board]
   (filter identity (map-indexed (fn[index item](if (nil? item)index)) board))
@@ -30,7 +32,7 @@
 (def any? (comp boolean some))
 
 (defn- rows[board]
-  (partition dimension board))
+  (partition (dimension board) board))
 
 (defn- cols[board]
   (apply map vector (rows board)))
@@ -39,10 +41,10 @@
   (vector (drop drop-number (reverse (drop drop-number (take-nth step-size board))))))
 
 (defn- diagonal-top-left[board]
-  (diagonal-line board (inc dimension) 0))
+  (diagonal-line board (inc (dimension board)) 0))
 
 (defn- diagonal-top-right[board]
-  (diagonal-line board (dec dimension) 1))
+  (diagonal-line board (dec (dimension board)) 1))
 
 (defn- diagonals[board]
   (concat (diagonal-top-left board) (diagonal-top-right board)))
@@ -64,5 +66,5 @@
     (any? true? (map #(line-won? %) (lines board)))))
 
 (defn draw? [board]
-  (letfn [(board-full? [board] (every? (comp not nil?) board))] 
+  (letfn [(board-full? [board] (every? (comp not nil?) board))]
     (and (board-full? board) ((comp not won?) board))))

@@ -12,7 +12,7 @@
 (defn- format-board [board]
   (->>
     (map #(if(= %1 nil) %2 (name %1)) board (range (count board)))
-    (partition dimension)
+    (partition (dimension board))
     (map #(clojure.string/join " | " %))
     (clojure.string/join "\n")))
 
