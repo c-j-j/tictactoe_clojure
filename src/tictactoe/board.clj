@@ -10,16 +10,21 @@
   (filter identity (map-indexed (fn[index item](if (nil? item)index)) board))
   )
 
+(defn number-of-moves-made[board]
+  (count (filter identity board)))
+
+(defn player-ones-turn? [board]
+  (even? (number-of-moves-made board)))
+
 (defn current-mark [board]
-  (if (even? (count (filter identity board))) :X :O)
-  )
+  (if (player-ones-turn? board) :X :O))
 
 (defn add-move [board position]
   (assoc board position (current-mark board))
   )
 
 (defn next-board-states [board]
-    (map #(add-move board %) (empty-positions board))
+  (map #(add-move board %) (empty-positions board))
   )
 
 (def any? (comp boolean some))

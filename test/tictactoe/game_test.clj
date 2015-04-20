@@ -2,22 +2,32 @@
   (:use midje.sweet)
   (:require [clojure.test :refer :all]
             [tictactoe.game :refer :all]
+            [tictactoe.player :as player]
             [tictactoe.board :refer :all]))
 
 (unfinished display-output)
 (unfinished player-1-move)
 
+(defn next-player-move [player_type x]
+  (defmethod player/get-move-new player_type [_ board] x))
+
+(def stub-player-one {:player_type :stub-player-one})
+(def stub-player-two {:player_type :stub-player-two})
+(def stub-players [stub-player-one stub-player-two])
+
 (facts "about game"
-  (fact "play-turn adds move to board"
-    (nth (play-turn (new-board) player-1-move) 1) => :X
-    (provided (player-1-move anything) => 1))
+  (fact "adds player one move to board"
+    (do (next-player-move :stub-player-one 1) (nth (play-turn (new-board) stub-players) 1)) => :X)
+
+
+  (fact "adds player two move to board"
+    (do (next-player-move :stub-player-two 3)
+        (nth (play-turn [:X nil nil nil nil nil nil nil nil] stub-players) 3)) => :O)
 
   (fact "plays game until game is over"
-    (play-game [:X :X nil :O :O nil nil nil nil] display-output player-1-move)
-    => [:X :X :X :O :O nil nil nil nil]
-    (provided
-      (player-1-move anything) => 2
-      (display-output anything) => nil))
+    (do (next-player-move :stub-player-one 2)
+        (play-game [:X :X nil :O :O nil nil nil nil] display-output stub-players)) => [:X :X :X :O :O nil nil nil nil]
+    (provided (display-output anything) => nil))
 
   (fact "prints to board when game is over"
     (play-game [:X :X :X nil nil nil nil nil nil] display-output nil)
@@ -31,6 +41,3 @@
   (fact "score is 0 when game has been drawn"
     (get-score [:X :X :O :O :X :X :X :O :O]) => 0)
   )
-
-(defn one-turn-game []
-  (with-in-str "2" (play-game [:X :X nil :O :O nil nil nil nil] display-output)))

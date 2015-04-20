@@ -23,4 +23,3 @@
     (draw? board) (print-to-console draw-message)
     :else
     (print-to-console (format next-turn-message (name (current-mark board))))))
-

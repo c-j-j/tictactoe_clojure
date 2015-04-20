@@ -8,7 +8,6 @@
 (defn get-computer-move[board]
   (player/get-move-new {:player_type :computer} board))
 
-
 (facts "about computer player"
   (fact "goes in last possible space"
     (get-computer-move [:X :X :O
@@ -28,7 +27,6 @@
   ;(get-computer-move [:X nil nil
   ;nil nil nil
   ;nil nil nil]) => 4)
-
 
   (fact "blocks opponent from winning"
     (get-computer-move [:X nil nil
