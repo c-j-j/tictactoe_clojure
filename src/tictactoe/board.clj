@@ -10,6 +10,14 @@
   (filter identity (map-indexed (fn[index item](if (nil? item)index)) board))
   )
 
+(defn current-mark [board]
+  (if (even? (count (filter identity board))) :X :O)
+  )
+
+(defn add-move [board position]
+  (assoc board position (current-mark board))
+  )
+
 (defn next-board-states [board]
     (map #(add-move board %) (empty-positions board))
   )
@@ -37,10 +45,6 @@
 (defn- lines[board]
   (concat (rows board) (cols board) (diagonals board)))
 
-(defn current-mark [board]
-  (if (even? (count (filter identity board))) :X :O)
-  )
-
 ; leaving this here to show difference between two approaches
 ;(defn add-move [board position]
 ;(->> (filter identity board)
@@ -49,9 +53,6 @@
 ;(assoc board position))
 ;)
 
-(defn add-move [board position]
-  (assoc board position (current-mark board))
-  )
 
 (defn won? [board]
   (letfn [(line-won? [line] (and (apply = line) (not-every? nil? line)))]
