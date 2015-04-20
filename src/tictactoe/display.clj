@@ -9,6 +9,7 @@
 (defn- print-to-console [s]
   (println s))
 
+;TODO find a way to not use macro threading here
 (defn- format-board [board]
   (->>
     (map #(if(= %1 nil) %2 (name %1)) board (range (count board)))
@@ -23,3 +24,27 @@
     (draw? board) (print-to-console draw-message)
     :else
     (print-to-console (format next-turn-message (name (current-mark board))))))
+
+(defn- parse-int [s]
+  (Integer/parseInt (re-find #"\A-?\d+" s)) )
+
+(defn- is-integer? [s]
+  (boolean (re-matches #"\d+" s)))
+
+(defn read-integer []
+  (loop [input (read-line)]
+    (if (is-integer? input)
+      (parse-int input)
+      (read-integer))))
+
+(defn get-option-from-user [message options]
+  (print-to-console message)
+  (doall (for [option-index (range 1 (inc (count options)))]
+    (print-to-console (format "%d: %s" option-index (get (nth options (dec option-index)) :description)))
+    ))
+
+  (let [selected-option (read-integer)]
+    (if (<= selected-option (count options))
+      (get (nth options (dec selected-option)) :option)
+      (get-option-from-user message options))
+    ))

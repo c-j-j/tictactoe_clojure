@@ -5,6 +5,9 @@
 (use '[tictactoe.humanplayer])
 (use '[tictactoe.computerplayer])
 (use '[tictactoe.player])
+(use '[tictactoe.game-setup])
 
 (defn -main []
-  (play-game (new-board 3) display-output [{:player_type :human} {:player_type :human}]))
+  (let [board (setup-board get-option-from-user)
+       players (setup-players get-option-from-user)]
+  (play-game board display-output players)))

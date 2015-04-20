@@ -19,7 +19,6 @@
   (fact "adds player one move to board"
     (do (next-player-move :stub-player-one 1) (nth (play-turn (new-board) stub-players) 1)) => :X)
 
-
   (fact "adds player two move to board"
     (do (next-player-move :stub-player-two 3)
         (nth (play-turn [:X nil nil nil nil nil nil nil nil] stub-players) 3)) => :O)
