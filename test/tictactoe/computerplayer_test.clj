@@ -25,13 +25,23 @@
   ;(get-computer-move (new-board)) => 0)
 
   ;(fact "chooses centre when opponent starts in corner"
-    ;(get-computer-move [:X nil nil
-                        ;nil nil nil
-                        ;nil nil nil]) => 4)
+  ;(get-computer-move [:X nil nil
+  ;nil nil nil
+  ;nil nil nil]) => 4)
 
 
-  (fact "forks opponent from winning"
+  (fact "blocks opponent from winning"
     (get-computer-move [:X nil nil
                         nil :O nil
                         :X nil nil]) => 3)
+
+  (fact "creates fork"
+    (get-computer-move [:X :O nil
+                        nil :X nil
+                        nil nil :O]) => 3)
+
+  (fact "creates another fork"
+    (get-computer-move [:X :O :X
+                        nil :X nil
+                        nil nil :O]) => 6)
   )

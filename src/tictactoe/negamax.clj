@@ -11,7 +11,7 @@
   (map #(unchecked-negate %) coll)
   )
 
-(defn negamax([node terminal? get-score get-child-nodes] 
+(defn negamax([node terminal? get-score get-child-nodes]
               (negamax node terminal? get-score get-child-nodes 0))
   ([node terminal? get-score get-child-nodes depth]
    (if (terminal? node)
