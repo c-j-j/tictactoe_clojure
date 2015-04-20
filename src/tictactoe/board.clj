@@ -51,15 +51,6 @@
 (defn- lines[board]
   (concat (rows board) (cols board) (diagonals board)))
 
-; leaving this here to show difference between two approaches
-;(defn add-move [board position]
-;(->> (filter identity board)
-;count
-;(#(if (even? %) :X :O))
-;(assoc board position))
-;)
-
-
 (defn won? [board]
   (letfn [(line-won? [line] (and (apply = line) (not-every? nil? line)))]
     (any? true? (map #(line-won? %) (lines board)))))
