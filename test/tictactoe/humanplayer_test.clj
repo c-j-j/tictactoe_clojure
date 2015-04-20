@@ -5,7 +5,7 @@
             [tictactoe.player :as player]))
 
 (defn get-human-move[board]
-  (player/get-move-new {:player_type :human} board))
+  (player/get-move {:player_type :human} board))
 
 (facts "about humanplayer"
   (fact "gets user input from console"

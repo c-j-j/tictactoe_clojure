@@ -6,7 +6,7 @@
   (or (won? board) (draw? board)))
 
 (defn play-turn [board [player1 player2]]
-  (let [get-move-from-player #(player/get-move-new % board)]
+  (let [get-move-from-player #(player/get-move % board)]
     (add-move board (if (player-ones-turn? board)
                    (get-move-from-player player1)
                    (get-move-from-player player2)

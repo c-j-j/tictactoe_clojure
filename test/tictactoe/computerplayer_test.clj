@@ -6,7 +6,7 @@
             [tictactoe.player :as player]))
 
 (defn get-computer-move[board]
-  (player/get-move-new {:player_type :computer} board))
+  (player/get-move {:player_type :computer} board))
 
 (facts "about computer player"
   (fact "goes in last possible space"

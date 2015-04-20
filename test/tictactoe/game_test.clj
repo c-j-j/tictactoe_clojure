@@ -9,7 +9,7 @@
 (unfinished player-1-move)
 
 (defn next-player-move [player_type x]
-  (defmethod player/get-move-new player_type [_ board] x))
+  (defmethod player/get-move player_type [_ board] x))
 
 (def stub-player-one {:player_type :stub-player-one})
 (def stub-player-two {:player_type :stub-player-two})
