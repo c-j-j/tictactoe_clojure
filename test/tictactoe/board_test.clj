@@ -3,7 +3,6 @@
   (:require [clojure.test :refer :all]
             [tictactoe.board :refer :all]))
 
-
 (facts "about board"
   (fact "creates new board"
     (count (new-board)) => 9)

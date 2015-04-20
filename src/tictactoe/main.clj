@@ -7,4 +7,4 @@
 (use '[tictactoe.player])
 
 (defn -main []
-  (play-game (new-board) display-output [{:player_type :human} {:player_type :computer}]))
+  (play-game (new-board 3) display-output [{:player_type :human} {:player_type :human}]))

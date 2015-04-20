@@ -26,8 +26,7 @@
   )
 
 (defn next-board-states [board]
-  (map #(add-move board %) (empty-positions board))
-  )
+  (map #(add-move board %) (empty-positions board)))
 
 (def any? (comp boolean some))
 
