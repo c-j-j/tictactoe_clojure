@@ -20,13 +20,13 @@
                         :X nil nil]) => 7)
 
   ;needs optimising
-  ;(fact "chooses corner to start things of with"
-  ;(get-computer-move (new-board)) => 0)
+  (fact "chooses corner to start things of with"
+    (get-computer-move (new-board)) => 0)
 
   ;(fact "chooses centre when opponent starts in corner"
-  ;(get-computer-move [:X nil nil
-  ;nil nil nil
-  ;nil nil nil]) => 4)
+  (get-computer-move [:X nil nil
+                      nil nil nil
+                      nil nil nil]) => 4
 
   (fact "blocks opponent from winning"
     (get-computer-move [:X nil nil

@@ -8,14 +8,13 @@
 (defn play-turn [board [player1 player2]]
   (let [get-move-from-player #(player/get-move % board)]
     (add-move board (if (player-ones-turn? board)
-                   (get-move-from-player player1)
-                   (get-move-from-player player2)
-                    ))))
+                      (get-move-from-player player1)
+                      (get-move-from-player player2)
+                      ))))
 
 (defn get-score[board]
-  (cond
-    (won? board) -10
-    (draw? board) 0))
+  (if
+    (won? board) -10 0))
 
 (defn play-game[board display-output players]
   (loop [current-board board]
