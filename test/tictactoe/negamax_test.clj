@@ -11,14 +11,14 @@
           get-score (fn [_] score)
           terminal? (fn [_] true)
           ]
-      (negamax node terminal? get-score _ 0) => 10))
+      (negamax node terminal? get-score _) => 10))
 
   (fact "negates the score of child node"
     (let [node 0 score 10 child-node 1
           get-score (fn [node] node)
           terminal? (fn [n] (not= n node))
           get-child-nodes (fn [node] [child-node])]
-      (negamax node terminal? get-score get-child-nodes 0) => child-node))
+      (negamax node terminal? get-score get-child-nodes ) => child-node))
 
   (fact "returns the child node with the lowest score"
     (let [node 0 score 10 child-node-A 2 child-node-B 1
@@ -26,7 +26,7 @@
           terminal? (fn [n] (not= n node))
           get-child-nodes (fn [node] [child-node-A child-node-B])
           ]
-      (negamax node terminal? get-score get-child-nodes 0) => child-node-B))
+      (negamax node terminal? get-score get-child-nodes ) => child-node-B))
 
 
   ;    0
@@ -38,7 +38,7 @@
           terminal? (fn [n] (>= n 4))
           get-child-nodes (fn [n] [(+ 1 n) (+ 2 n)])
           ]
-      (negamax node terminal? get-score get-child-nodes 0) => 2))
+      (negamax node terminal? get-score get-child-nodes ) => 2))
 
 
   (fact "returns the child node vector with the lowest score"
@@ -47,5 +47,5 @@
           terminal? (fn [n] (not= n node))
           get-child-nodes (fn [node] [child-node-A child-node-B])
           ]
-      (negamax node terminal? get-score get-child-nodes 0) => child-node-A))
+      (negamax node terminal? get-score get-child-nodes) => child-node-A))
   )
