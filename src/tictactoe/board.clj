@@ -9,8 +9,7 @@
            (apply vector (repeat (square dim) nil)))))
 
 (defn empty-positions [board]
-  (filter identity (map-indexed (fn[index item](if (nil? item)index)) board))
-  )
+  (filter identity (map-indexed (fn[index item](if (nil? item)index)) board)))
 
 (defn number-of-moves-made[board]
   (count (filter identity board)))
@@ -22,8 +21,7 @@
   (if (player-ones-turn? board) :X :O))
 
 (defn add-move [board position]
-  (assoc board position (current-mark board))
-  )
+  (assoc board position (current-mark board)))
 
 (defn next-board-states [board]
   (map #(add-move board %) (empty-positions board)))

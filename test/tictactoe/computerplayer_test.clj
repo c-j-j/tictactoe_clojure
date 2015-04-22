@@ -20,26 +20,30 @@
                         :X nil nil]) => 7)
 
   ;needs optimising
+  ;(time (fact "chooses corner to start things of with"
+          ;(get-computer-move (new-board)) => 0))
+
   (fact "chooses corner to start things of with"
-    (get-computer-move (new-board)) => 0)
+          (get-computer-move (new-board)) => 0)
 
-  ;(fact "chooses centre when opponent starts in corner"
-  (get-computer-move [:X nil nil
-                      nil nil nil
-                      nil nil nil]) => 4
-
-  (fact "blocks opponent from winning"
+  (fact "chooses centre when opponent starts in corner"
     (get-computer-move [:X nil nil
-                        nil :O nil
-                        :X nil nil]) => 3)
+                        nil nil nil
+                        nil nil nil]) => 4
 
-  (fact "creates fork"
-    (get-computer-move [:X :O nil
-                        nil :X nil
-                        nil nil :O]) => 3)
+    (fact "blocks opponent from winning"
+      (get-computer-move [:X nil nil
+                          nil :O nil
+                          :X nil nil]) => 3)
 
-  (fact "creates another fork"
-    (get-computer-move [:X :O :X
-                        nil :X nil
-                        nil nil :O]) => 6)
+    (fact "creates fork"
+      (get-computer-move [:X :O nil
+                          nil :X nil
+                          nil nil :O]) => 3)
+
+    (fact "creates another fork"
+      (get-computer-move [:X :O :X
+                          nil :X nil
+                          nil nil :O]) => 6)
+    )
   )

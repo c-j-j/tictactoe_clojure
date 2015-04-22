@@ -8,16 +8,18 @@
 (defn negamax([node terminal? get-score get-child-nodes]
               (negamax node terminal? get-score get-child-nodes 0))
   ([node terminal? get-score get-child-nodes depth]
-   (if (or (= depth maximum-depth) (terminal? node))
-     (get-score node)
-     (let [apply-negamax #(-(negamax % terminal? get-score get-child-nodes (inc depth)))
-           child-nodes (get-child-nodes node)
-           child-scores (map apply-negamax child-nodes)
-           child-node-scores (zipmap child-nodes child-scores)
-           best-score (sort-map-by-value child-node-scores)]
-       (if (= depth 0)
-         (first (keys best-score))
-         (first (vals best-score))))
-     ))
+   (let [terminal? (memoize terminal?)
+         get-score (memoize get-score)
+         get-child-nodes (memoize get-child-nodes)]
+     (if (or (= depth maximum-depth) (terminal? node))
+       (get-score node)
+       (let [apply-negamax #(-(negamax % terminal? get-score get-child-nodes (inc depth)))
+             child-nodes (get-child-nodes node)
+             child-scores (map apply-negamax child-nodes)
+             child-node-scores (zipmap child-nodes child-scores)
+             best-score (sort-map-by-value child-node-scores)]
+         (if (= depth 0)
+           (first (keys best-score))
+           (first (vals best-score))))
+       )))
   )
-
