@@ -23,6 +23,7 @@
   (time (fact "chooses corner to start things of with"
           (get-computer-move (new-board)) => 0))
 
+
   (fact "chooses corner to start things of with"
           (get-computer-move (new-board)) => 0)
 

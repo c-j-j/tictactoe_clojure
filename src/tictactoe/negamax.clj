@@ -10,13 +10,14 @@
             (let [alpha (apply max scores-so-far)]
               (if (< alpha beta)
                 (conj scores-so-far (negamax-f next-node alpha))
-                scores-so-far))) [alpha] child-nodes))
+                (reduced scores-so-far))))
+          [alpha] child-nodes))
 
 (defn- get-best-node[node terminal? get-score get-child-nodes depth alpha beta]
   (if (or (= depth maximum-depth) (terminal? node))
     (get-score node)
-    (let [get-best-child-node (fn[child-node alpha]
-                          (- (get-best-node child-node terminal? get-score get-child-nodes (inc depth) (- beta) (- alpha))))
+    (let [get-best-child-node
+          (fn[child-node alpha] (- (get-best-node child-node terminal? get-score get-child-nodes (inc depth) (- beta) (- alpha))))
           child-nodes (get-child-nodes node)
           child-scores (alpha-beta-prune alpha beta child-nodes get-best-child-node)
           child-node-scores (zipmap child-nodes (rest child-scores))
